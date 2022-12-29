@@ -4,4 +4,4 @@ This repository contains the code for a REStful Web Service that allows users to
 
 Terminal instructions:
 
-1. npm i express mongodb dotenv
+1. npm i express mongodb dotenv body-parser
