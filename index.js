@@ -1,8 +1,12 @@
 const { MongoClient } = require("mongodb");
+require("dotenv").config();
+//import { env } from process;
+const mongoUsername = process.env.MONGO_USERNAME;
+const mongoPassword = process.env.MONGO_PASSWORD;
+
 //==========================Main===========================================
 async function main() {
-  const uri =
-    "mongodb+srv://root:root@cluster0.h7gutkk.mongodb.net/?retryWrites=true&w=majority";
+  const uri = `mongodb+srv://${mongoUsername}:${mongoPassword}@cluster0.h7gutkk.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
   try {
     await client.connect();
