@@ -10,6 +10,7 @@ router.post("/addcost", async (req, res) => {
 
   const uri = `mongodb+srv://${mongoUsername}:${mongoPassword}@cluster0.h7gutkk.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
+  // mongoose.connect(uri)
   try {
     await client.connect();
     const costsCollection = client.db("databaseName").collection("costs");
