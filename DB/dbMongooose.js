@@ -4,7 +4,6 @@ const url = require("url");
 
 const app = express();
 
-
 app.get("/addcost", async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   let user_id = queryObject.user_id;
@@ -47,7 +46,14 @@ app.get("/addcost", async (req, res) => {
   );
 
   Schema.methods.printContent = function () {
-    let str = "Cost user_id: " + this.user_id + "\nCost year: " + this.year;
+    let str = `cost user_id : ${this.cost_user_id}\n 
+    cost year : ${this.cost_year}\n
+    cost month : ${this.cost_month}\n
+    cost day : ${this.cost_day}\n
+    cost id : ${this.cost_id}\n
+    cost description : ${this.cost_description}\n
+    cost category : ${this.cost_category}\n
+    cost sum : ${this.cost_sum}\n`;
     console.log(str);
   };
 
