@@ -1,12 +1,21 @@
+const express = require("express");
 const mongoose = require("mongoose");
 const url = require("url");
-const http = require("http");
 
-const server = http.createServer(async (req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
+const app = express();
+
+
+app.get("/addcost", async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
-  let name = queryObject.name;
-  let content = queryObject.value;
+  let user_id = queryObject.user_id;
+  let year = queryObject.year;
+  let month = queryObject.month;
+  let day = queryObject.day;
+  let id = queryObject.id;
+  let description = queryObject.description;
+  let category = queryObject.category; //should be limited
+  let sum = queryObject.sum;
+
   let uri1 =
     "mongodb+srv://root:root@cluster0.h7gutkk.mongodb.net/WebDB?retryWrites=true&w=majority";
 
@@ -23,21 +32,38 @@ const server = http.createServer(async (req, res) => {
   });
   console.log("connected!");
 
-  let Schema = mongoose.Schema({
-    cost_name: String,
-    cost_value: String,
-  });
+  let Schema = mongoose.Schema(
+    {
+      cost_user_id: String,
+      cost_year: String,
+      cost_month: String,
+      cost_day: String,
+      cost_id: String,
+      cost_description: String,
+      cost_category: String,
+      cost_sum: String,
+    },
+    { versionKey: false }
+  );
 
   Schema.methods.printContent = function () {
-    let str =
-      "Cost name: " + this.cost_name + "\nCost value: " + this.cost_value;
+    let str = "Cost user_id: " + this.user_id + "\nCost year: " + this.year;
     console.log(str);
   };
 
   //collection name
   let costDoc = mongoose.model("costs", Schema);
 
-  let cost = new costDoc({ cost_name: name, cost_value: content });
+  let cost = new costDoc({
+    cost_user_id: user_id,
+    cost_year: year,
+    cost_month: month,
+    cost_day: day,
+    cost_id: id,
+    cost_description: description,
+    cost_category: category,
+    cost_sum: sum,
+  });
 
   try {
     await cost.save();
@@ -53,6 +79,10 @@ const server = http.createServer(async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+
+  res.send("cost was saved to mongodb");
 });
 
-server.listen(1300);
+app.listen(1300);
+
+//http://localhost:1300/addcost?user_id=shahar1&year=1992&month=5&day=3&id=123&description=veryGood&category=food&sum=90.99
