@@ -10,8 +10,12 @@ Terminal instructions:
 
 ## Roadmap
 
+1.setting the project
+
 - [x] /addcost
 - [x] /report
 - [x] /about
 - [x] breaking to sub rout files
 - [ ] make the server listen continuously
+
+  2.upload the project to domain
