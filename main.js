@@ -16,5 +16,5 @@ app.use("/about", about);
   app.listen(1300);
 })();
 
-//http://localhost:1300/addcost?user_id=123123&year=2023&month=1&day=4&id=456&description=money+well+spent&sum=100
+//http://localhost:1300/addcost?user_id=123123&year=2023&month=1&day=4&id=456&description=money+well+spent&category=food&sum=100
 //http://localhost:1300/report?user_id=123123&year=2023&month=1

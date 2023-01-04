@@ -4,7 +4,7 @@ const { costDoc } = require("../db/db");
 const url = require("url");
 
 router.get("/", async (req, res) => {
-  console.log("1-2");
+  console.log("processing addCost");
   const queryObject = url.parse(req.url, true).query;
   let user_id = queryObject.user_id;
   let year = String(queryObject.year);
