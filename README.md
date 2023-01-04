@@ -16,6 +16,11 @@ Terminal instructions:
 - [x] /report
 - [x] /about
 - [x] breaking to sub rout files
-- [ ] make the server listen continuously
+- [x] make the server listen continuously
 
-  2.upload the project to domain
+2.talk with life michael
+
+3.upload the project to domain
+  - [x] deside aws/cloude/azure/netlify
+  - [x] implementation
+  - [x] tests
