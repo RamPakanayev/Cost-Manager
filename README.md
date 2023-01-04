@@ -21,6 +21,6 @@ Terminal instructions:
 2.talk with life michael
 
 3.upload the project to domain
-  - [x] deside aws/cloude/azure/netlify
-  - [x] implementation
-  - [x] tests
+  - [ ] decide aws/cloude/azure/netlify
+  - [ ] implementation
+  - [ ] tests
