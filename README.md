@@ -6,15 +6,12 @@ Terminal instructions:
 
 1. npm i express mongodb dotenv body-parser
 
-
 <!-- ROADMAP -->
+
 ## Roadmap
 
-- [ ]  /addcost
-- [ ]   /report
-- [ ] 
-- [ ]   
-- [ ] 
-- [ ]  
-- [ ]  
-- [ ] 
+- [x] /addcost
+- [x] /report
+- [x] /about
+- [ ] breaking to sub rout files
+- [ ] make the server listen continuously
