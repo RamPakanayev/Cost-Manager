@@ -3,7 +3,7 @@ const router = express.Router();
 const { costDoc } = require("../db/db");
 const url = require("url");
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
   console.log("processing addCost");
   const queryObject = url.parse(req.url, true).query;
   let user_id = queryObject.user_id;
