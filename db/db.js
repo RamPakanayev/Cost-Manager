@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+console.log("db.js file start");
 // Define the Mongoose schema and model here
 let Schema = mongoose.Schema(
   {
@@ -47,6 +47,7 @@ const connectToDB = async () => {
   });
   console.log("connected to MongoDB!");
 };
+console.log("db.js file start");
 
 module.exports = {
   costDoc,
