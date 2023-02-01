@@ -47,7 +47,7 @@ const connectToDB = async () => {
   });
   console.log("connected to MongoDB!");
 };
-console.log("db.js file start");
+console.log("db.js file end");
 
 module.exports = {
   costDoc,
