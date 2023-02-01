@@ -17,14 +17,14 @@ router.post("/", async (req, res) => {
   let sum = queryObject.sum;
 
   let cost = new costDoc({
-    cost_user_id: user_id,
-    cost_year: year,
-    cost_month: month,
-    cost_day: day,
-    cost_id: id,
-    cost_description: description,
-    cost_category: category,
-    cost_sum: sum,
+    user_id: user_id,
+    year: year,
+    month: month,
+    day: day,
+    id: id,
+    description: description,
+    category: category,
+    sum: sum,
   });
 
   try {

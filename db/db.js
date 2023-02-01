@@ -3,27 +3,27 @@ console.log("db.js file start");
 // Define the Mongoose schema and model here
 let Schema = mongoose.Schema(
   {
-    cost_user_id: String,
-    cost_year: String,
-    cost_month: String,
-    cost_day: String,
-    cost_id: String,
-    cost_description: String,
-    cost_category: String,
-    cost_sum: String,
+    user_id: String,
+    year: String,
+    month: String,
+    day: String,
+    id: String,
+    description: String,
+    category: String,
+    sum: String,
   },
   { versionKey: false }
 );
 
 Schema.methods.printContent = function () {
-  let str = `cost user_id : ${this.cost_user_id}\n
-    cost year : ${this.cost_year}\n
-    cost month : ${this.cost_month}\n
-    cost day : ${this.cost_day}\n
-    cost id : ${this.cost_id}\n
-    cost description : ${this.cost_description}\n
-    cost category : ${this.cost_category}\n
-    cost sum : ${this.cost_sum}\n`;
+  let str = `user_id : ${this.user_id}\n
+    year : ${this.year}\n
+    month : ${this.month}\n
+    day : ${this.day}\n
+    id : ${this.id}\n
+    description : ${this.description}\n
+    category : ${this.category}\n
+    sum : ${this.sum}\n`;
   console.log(str);
 };
 
