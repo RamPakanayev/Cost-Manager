@@ -1,31 +1,18 @@
 const mongoose = require("mongoose");
-console.log("db.js file start");
+
 // Define the Mongoose schema and model here
 let Schema = mongoose.Schema(
   {
     user_id: String,
     year: String,
     month: String,
-    day: String,
-    id: String,
+    day: Number,
     description: String,
     category: String,
-    sum: String,
+    sum: Number,
   },
   { versionKey: false }
 );
-
-Schema.methods.printContent = function () {
-  let str = `user_id : ${this.user_id}\n
-    year : ${this.year}\n
-    month : ${this.month}\n
-    day : ${this.day}\n
-    id : ${this.id}\n
-    description : ${this.description}\n
-    category : ${this.category}\n
-    sum : ${this.sum}\n`;
-  console.log(str);
-};
 
 //collection name
 let costDoc = mongoose.model("costs", Schema);
@@ -47,7 +34,6 @@ const connectToDB = async () => {
   });
   console.log("connected to MongoDB!");
 };
-console.log("db.js file end");
 
 module.exports = {
   costDoc,

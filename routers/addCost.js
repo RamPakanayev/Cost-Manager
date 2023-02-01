@@ -11,17 +11,17 @@ router.post("/", async (req, res) => {
   let year = String(queryObject.year);
   let month = String(queryObject.month);
   let day = queryObject.day;
-  let id = queryObject.id;
   let description = queryObject.description;
-  let category = queryObject.category; //should be limited
+  let category = queryObject.category; 
   let sum = queryObject.sum;
+  let id= parseInt(0);//what to do with this
 
   let cost = new costDoc({
     user_id: user_id,
     year: year,
     month: month,
     day: day,
-    id: id,
+    id: id,// as well...
     description: description,
     category: category,
     sum: sum,
@@ -30,7 +30,8 @@ router.post("/", async (req, res) => {
   try {
     await cost.save();
     console.log("cost was saved to mongodb");
-    cost.printContent();
+    // cost.printContent();
+    id=id+1;
   } catch (error) {
     console.log(error);
   }
