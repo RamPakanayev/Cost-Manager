@@ -33,7 +33,7 @@ const connectToDB = async () => {
   await new Promise((resolve, reject) => {
     db.once("open", resolve);
   });
-  console.log("connected to MongoDB!");
+  console.log("Successfully connected to the MongoDB database");
 };
 
 module.exports = {

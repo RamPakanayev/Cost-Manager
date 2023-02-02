@@ -5,17 +5,17 @@ const express = require("express");
 const app = express();
 
 // Import the costDoc and connectToDB functions from db.js
-const { costDoc, connectToDB } = require("./db/db");
+const { connectToDB } = require("./db/db");
 
 // Import the routers for the add cost, report, and about pages
-const addcost = require("./routers/addCost");
-const report = require("./routers/report");
-const about = require("./routers/about");
+const addCostRouter = require("./routers/addCost");
+const reportRouter = require("./routers/report");
+const aboutRouter = require("./routers/about");
 
 // Use the routers for the add cost, report, and about pages
-app.use("/addcost", addcost);
-app.use("/report", report);
-app.use("/about", about);
+app.use("/addcost", addCostRouter);
+app.use("/report", reportRouter);
+app.use("/about", aboutRouter);
 
 // Connect to the MongoDB database as soon as the application starts
 (async () => {
