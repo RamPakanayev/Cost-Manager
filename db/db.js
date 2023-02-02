@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 // Define the Mongoose schema and model here
 let Schema = mongoose.Schema(
   {
-    // _id :ObjectId,
     user_id: String,
     year: String,
     month: String,
@@ -11,6 +10,7 @@ let Schema = mongoose.Schema(
     description: String,
     category: String,
     sum: Number,
+    id: String // added a new field "id"
   },
   { versionKey: false }
 );
