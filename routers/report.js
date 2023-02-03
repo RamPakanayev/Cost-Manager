@@ -21,13 +21,14 @@ router.get('/', async (req, res) => {
 // Destructure the year, month, and user_id parameters from the query
 const { year, month, user_id } = req.query;
 
+
 // If any of the required parameters is missing, return an error
 if (!year || !month || !user_id) {
 return res.status(400).send({ error: 'Invalid query parameters' });
 }
 
 try {
-// Find costs in the database based on user_id, year, and month
+// Find costs documents in the database based on user_id, year, and month
 const costs = await req.app.db.costDoc.find({
 user_id: user_id,
 year: year,
@@ -36,7 +37,7 @@ month: month
 if (!costs.length) {
   return res.send({ message: "No costs found for specified user and month/year" });
 }
-
+console.log("processing report");
 // Create a report object by grouping the costs by category
 const report = categories.reduce((result, category) => {
   result[category] = costs
