@@ -31,24 +31,41 @@ router.post("/", async (req, res) => {
 // Getting the parameters passed in the URL
 const queryObject = url.parse(req.url, true).query;
 
-// Destructuring the parameters into separate variables
-let userId = queryObject.user_id;
-let year = String(queryObject.year);
-let month = String(queryObject.month);
-let day = queryObject.day;
-let description = queryObject.description;
-let category = queryObject.category;
-let sum = queryObject.sum;
-let id = 0; // Not sure what the purpose of this is
+  // Destructuring the parameters into separate variables
+  let userId = queryObject.user_id;
+  let year = queryObject.year || new Date().getFullYear();
+  let month = queryObject.month || (new Date().getMonth() + 1);
+  let day = queryObject.day || new Date().getDate();
+  let description = queryObject.description;
+  let category = queryObject.category;
+  let sum = queryObject.sum;
+  let date = new Date();
+  let id =
+    date.getFullYear().toString() +
+    (date.getMonth() + 1).toString().padStart(2, "0") +
+    date.getDate().toString().padStart(2, "0") +
+    date
+      .getHours()
+      .toString()
+      .padStart(2, "0") +
+    date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0") +
+    date.getSeconds().toString().padStart(2, "0");
 
   // Check if the date is valid
   if (!isValidDate(day, month)) {
     return res.status(400).send("Invalid date");
   }
-
+  
   // Check if the category is valid
   if (!isValidCategory(category)) {
     return res.status(400).send("Invalid category");
+  }
+   // Check if the required fields (user_id, description, sum, category) are provided
+   if (!userId || !description || !sum || !category) {
+    return res.status(400).send("user_id, description, sum, and category are required fields");
   }
 
 // Creating a new cost document with the given parameters
