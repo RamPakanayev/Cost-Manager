@@ -59,15 +59,21 @@ router.post("/", async (req, res) => {
     return res.status(400).send("Invalid date");
   }
   
+    // Check if the required fields (user_id, description, sum, category) are provided
+    if (!userId || !description || !sum || !category) {
+      return res.status(400).send("user_id, description, sum, and category are required fields");
+    }
+
+     // Check if the sum is a valid number
+    if (isNaN(sum)) {
+      return res.status(400).send("Invalid sum. Sum must be a number.");
+  }
+
   // Check if the category is valid
   if (!isValidCategory(category)) {
     return res.status(400).send("Invalid category");
   }
-   // Check if the required fields (user_id, description, sum, category) are provided
-   if (!userId || !description || !sum || !category) {
-    return res.status(400).send("user_id, description, sum, and category are required fields");
-  }
-
+ 
   // Creating a new cost document with the given parameters
   let cost = new costDoc({
     user_id: userId,
