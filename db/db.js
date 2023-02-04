@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-// Define the Mongoose schema and model here
-let Schema = mongoose.Schema(
+// Define the Mongoose schema and model for costs
+let costSchema = mongoose.Schema(
   {
     user_id: String,
     year: String,
@@ -10,13 +10,23 @@ let Schema = mongoose.Schema(
     description: String,
     category: String,
     sum: Number,
-    id: String // added a new field "id"
+    id: String
   },
   { versionKey: false }
 );
+let costDoc = mongoose.model("costs", costSchema);
 
-//collection name
-let costDoc = mongoose.model("costs", Schema);
+// Define the Mongoose schema and model for users
+let userSchema = mongoose.Schema(
+  {
+    _id: String,
+    first_name: String,
+    last_name: String,
+    birthday: String,
+  },
+  { versionKey: false }
+);
+let userDoc = mongoose.model("users", userSchema);
 
 const connectToDB = async () => {
   let uri1 =
@@ -38,5 +48,6 @@ const connectToDB = async () => {
 
 module.exports = {
   costDoc,
+  userDoc,
   connectToDB,
 };
