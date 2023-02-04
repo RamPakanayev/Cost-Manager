@@ -12,8 +12,8 @@ const isValidUserId = async (userId) => {
 };
 
 // Function to check if a given day and month are valid
-const isValidDate = (day, month) => {
-  return day > 0 && day <= 31 && month > 0 && month <= 12;
+const isValidDate = (day, month,year) => {
+  return day > 0 && day <= 31 && month > 0 && month <= 12 &&year>=1900;
 };
 
 // Function to check if a given category is one of the valid categories
@@ -62,8 +62,8 @@ router.post("/", async (req, res) => {
     date.getSeconds().toString().padStart(2, "0");
 
   // Check if the date is valid
-  if (!isValidDate(day, month)) {
-    return res.status(400).send("Invalid date");
+  if (!isValidDate(day, month, year)) {
+    return res.status(400).send("Invalid date.\n Day must be between 1 to 31 or an empty filed,\n Month must be between 1 to 12  or an empty filed,\n Year must be 1900 and above or an empty filed.\n \n # Note:\n An empty felid will be filled by the current date.");
   }
   
   // Check if the required fields (user_id, description, sum, category) are provided
@@ -74,7 +74,7 @@ router.post("/", async (req, res) => {
  // Check if the user_id exists in the users collection
  const userExists = await isValidUserId(userId);
  if (!userExists) {
-   return res.status(400).send("Invalid user_id");
+   return res.status(400).send("Invalid user_id.");
  }
 
   // Check if the sum is a valid number
@@ -84,7 +84,7 @@ router.post("/", async (req, res) => {
 
   // Check if the category is valid
   if (!isValidCategory(category)) {
-    return res.status(400).send("Invalid category");
+    return res.status(400).send("Invalid category. \n The options are: \n food, health, housing, sport,\n education, transportation and other.");
   }
  
   // Creating a new cost document with the given parameters
