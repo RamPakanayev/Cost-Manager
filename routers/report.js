@@ -18,6 +18,8 @@ const categories = [
 
 // Handle GET requests to the / report endpoint
 router.get('/', async (req, res) => {
+  // Logging message to track that the report route is being processed
+  console.log("Processing report...");
 // Destructure the year, month, and user_id parameters from the query
 const { year, month, user_id } = req.query;
 

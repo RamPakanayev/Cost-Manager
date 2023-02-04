@@ -1,8 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const axios = require("axios");
-const { costDoc } = require("../db/db");
+const { costDoc,userDoc } = require("../db/db");
 const url = require("url");
+
+
+// Function to check if a given user_id exists in the users collection
+const isValidUserId = async (userId) => {
+  const user = await userDoc.findOne({ _id: userId });
+  return user !== null;
+};
 
 // Function to check if a given day and month are valid
 const isValidDate = (day, month) => {
@@ -59,14 +66,20 @@ router.post("/", async (req, res) => {
     return res.status(400).send("Invalid date");
   }
   
-    // Check if the required fields (user_id, description, sum, category) are provided
-    if (!userId || !description || !sum || !category) {
-      return res.status(400).send("user_id, description, sum, and category are required fields");
-    }
+  // Check if the required fields (user_id, description, sum, category) are provided
+  if (!userId || !description || !sum || !category) {
+    return res.status(400).send("user_id, description, sum, and category are required fields");
+  }
 
-     // Check if the sum is a valid number
-    if (isNaN(sum)) {
-      return res.status(400).send("Invalid sum. Sum must be a number.");
+ // Check if the user_id exists in the users collection
+ const userExists = await isValidUserId(userId);
+ if (!userExists) {
+   return res.status(400).send("Invalid user_id");
+ }
+
+  // Check if the sum is a valid number
+  if (isNaN(sum)) {
+    return res.status(400).send("Invalid sum. Sum must be a number.");
   }
 
   // Check if the category is valid
