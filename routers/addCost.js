@@ -3,6 +3,7 @@ const router = express.Router();
 const axios = require("axios");
 const { costDoc,userDoc } = require("../db/db");
 const url = require("url");
+// const {isValidUserId,isValidDate, idGenerator,isValidCategory}=require("./validation")
 
 
 // Function to check if a given user_id exists in the users collection
@@ -15,6 +16,22 @@ const isValidUserId = async (userId) => {
 const isValidDate = (day, month,year) => {
   return day > 0 && day <= 31 && month > 0 && month <= 12 &&year>=1900;
 };
+
+const idGenerator=()=>{
+  let date=new Date()
+  return (date.getFullYear().toString() +
+    (date.getMonth() + 1).toString().padStart(2, "0") +
+    date.getDate().toString().padStart(2, "0") +
+    date
+      .getHours()
+      .toString()
+      .padStart(2, "0") +
+    date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0") +
+    date.getSeconds().toString().padStart(2, "0"));
+}
 
 // Function to check if a given category is one of the valid categories
 const isValidCategory = (category) => {
@@ -46,20 +63,7 @@ router.post("/", async (req, res) => {
   let description = queryObject.description;
   let category = queryObject.category;
   let sum = queryObject.sum;
-  let date = new Date();
-  let id =
-    date.getFullYear().toString() +
-    (date.getMonth() + 1).toString().padStart(2, "0") +
-    date.getDate().toString().padStart(2, "0") +
-    date
-      .getHours()
-      .toString()
-      .padStart(2, "0") +
-    date
-      .getMinutes()
-      .toString()
-      .padStart(2, "0") +
-    date.getSeconds().toString().padStart(2, "0");
+  let id =idGenerator()
 
   // Check if the date is valid
   if (!isValidDate(day, month, year)) {
