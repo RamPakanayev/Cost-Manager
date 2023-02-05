@@ -7,10 +7,10 @@ let costSchema = mongoose.Schema(
     year: String,
     month: String,
     day: Number,
+    id: String,
     description: String,
     category: String,
-    sum: Number,
-    id: String
+    sum: Number
   },
   { versionKey: false }
 );

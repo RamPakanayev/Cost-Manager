@@ -1,9 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const axios = require("axios");
 const { costDoc,userDoc } = require("../db/db");
 const url = require("url");
-
+// const {isValidUserId,isValidDate, idGenerator,isValidCategory}=require("./validation")
 
 // Function to check if a given user_id exists in the users collection
 const isValidUserId = async (userId) => {
@@ -12,9 +11,25 @@ const isValidUserId = async (userId) => {
 };
 
 // Function to check if a given day and month are valid
-const isValidDate = (day, month) => {
-  return day > 0 && day <= 31 && month > 0 && month <= 12;
+const isValidDate = (day, month,year) => {
+  return day > 0 && day <= 31 && month > 0 && month <= 12 &&year>=1900;
 };
+
+const idGenerator=()=>{
+  let date=new Date()
+  return (date.getFullYear().toString() +
+    (date.getMonth() + 1).toString().padStart(2, "0") +
+    date.getDate().toString().padStart(2, "0") +
+    date
+      .getHours()
+      .toString()
+      .padStart(2, "0") +
+    date
+      .getMinutes()
+      .toString()
+      .padStart(2, "0") +
+    date.getSeconds().toString().padStart(2, "0"));
+}
 
 // Function to check if a given category is one of the valid categories
 const isValidCategory = (category) => {
@@ -46,35 +61,19 @@ router.post("/", async (req, res) => {
   let description = queryObject.description;
   let category = queryObject.category;
   let sum = queryObject.sum;
-  let date = new Date();
-  let id =
-    date.getFullYear().toString() +
-    (date.getMonth() + 1).toString().padStart(2, "0") +
-    date.getDate().toString().padStart(2, "0") +
-    date
-      .getHours()
-      .toString()
-      .padStart(2, "0") +
-    date
-      .getMinutes()
-      .toString()
-      .padStart(2, "0") +
-    date.getSeconds().toString().padStart(2, "0");
+  let id =idGenerator()
 
-  // Check if the date is valid
-  if (!isValidDate(day, month)) {
-    return res.status(400).send("Invalid date");
-  }
   
   // Check if the required fields (user_id, description, sum, category) are provided
   if (!userId || !description || !sum || !category) {
-    return res.status(400).send("user_id, description, sum, and category are required fields");
+    return res.status(400)
+    .send("user_id, description, sum, and category are required fields");
   }
 
  // Check if the user_id exists in the users collection
  const userExists = await isValidUserId(userId);
  if (!userExists) {
-   return res.status(400).send("Invalid user_id");
+   return res.status(400).send("Invalid user_id.");
  }
 
   // Check if the sum is a valid number
@@ -84,9 +83,16 @@ router.post("/", async (req, res) => {
 
   // Check if the category is valid
   if (!isValidCategory(category)) {
-    return res.status(400).send("Invalid category");
+    return res.status(400)
+    .send("Invalid category. \n The options are: \n food, health, housing, sport,\n education, transportation and other.");
   }
- 
+
+  // Check if the date is valid
+  if (!isValidDate(day, month, year)) {
+    return res.status(400)
+    .send("Invalid date.\n Day must be between 1 to 31 or an empty filed,\n Month must be between 1 to 12  or an empty filed,\n Year must be 1900 and above or an empty filed.\n \n # Note:\n An empty felid will be filled by the current date.");
+  }
+
   // Creating a new cost document with the given parameters
   let cost = new costDoc({
     user_id: userId,
@@ -103,9 +109,11 @@ router.post("/", async (req, res) => {
   try {
     await cost.save();
     console.log("Cost was saved in the MongoDB dataBase");
-  } catch (error) {
-    console.error(error);
-  }
+  }catch (err) {
+  // If there is an error while fetching the costs, return an error
+  return res.status(500)
+  .send({ error: 'Error accrued while trying to save the cost' });
+}
 
   // Sending a response indicating that the cost was saved to the database
   res.send("Cost was saved in the MongoDB dataBase !");
