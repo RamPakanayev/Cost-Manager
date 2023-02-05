@@ -65,10 +65,6 @@ router.post("/", async (req, res) => {
   let sum = queryObject.sum;
   let id =idGenerator()
 
-  // Check if the date is valid
-  if (!isValidDate(day, month, year)) {
-    return res.status(400).send("Invalid date.\n Day must be between 1 to 31 or an empty filed,\n Month must be between 1 to 12  or an empty filed,\n Year must be 1900 and above or an empty filed.\n \n # Note:\n An empty felid will be filled by the current date.");
-  }
   
   // Check if the required fields (user_id, description, sum, category) are provided
   if (!userId || !description || !sum || !category) {
@@ -90,7 +86,12 @@ router.post("/", async (req, res) => {
   if (!isValidCategory(category)) {
     return res.status(400).send("Invalid category. \n The options are: \n food, health, housing, sport,\n education, transportation and other.");
   }
- 
+
+  // Check if the date is valid
+  if (!isValidDate(day, month, year)) {
+    return res.status(400).send("Invalid date.\n Day must be between 1 to 31 or an empty filed,\n Month must be between 1 to 12  or an empty filed,\n Year must be 1900 and above or an empty filed.\n \n # Note:\n An empty felid will be filled by the current date.");
+  }
+
   // Creating a new cost document with the given parameters
   let cost = new costDoc({
     user_id: userId,
@@ -107,9 +108,11 @@ router.post("/", async (req, res) => {
   try {
     await cost.save();
     console.log("Cost was saved in the MongoDB dataBase");
-  } catch (error) {
-    console.error(error);
-  }
+  }catch (err) {
+  // If there is an error while fetching the costs, return an error
+  return res.status(500).send({ error: 'Error accrued while trying to save the cost' });
+}
+  
 
   // Sending a response indicating that the cost was saved to the database
   res.send("Cost was saved in the MongoDB dataBase !");

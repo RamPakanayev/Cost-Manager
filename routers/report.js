@@ -16,6 +16,10 @@ const categories = [
 'other'
 ];
 
+const isValidDate = (month,year) => {
+  return month > 0 && month <= 12 &&year>=1900;
+};
+
 // Handle GET requests to the / report endpoint
 router.get('/', async (req, res) => {
   // Logging message to track that the report route is being processed
@@ -26,8 +30,13 @@ const { year, month, user_id } = req.query;
 
 // If any of the required parameters is missing, return an error
 if (!year || !month || !user_id) {
-return res.status(400).send({ error: 'Invalid query parameters' });
+return res.status(400).send({ error: "Invalid query parameters" });
 }
+
+if(!isValidDate(month,year)){
+  return res.status(400).send({error:"Invalid date. Year must be 1900 and above . Month must be between 1 to 12."})
+}
+
 
 try {
 // Find costs documents in the database based on user_id, year, and month
@@ -53,11 +62,14 @@ const report = categories.reduce((result, category) => {
 }, {});
 
 // Send the report object as the response
-res.send(report);} catch (err) {
+res.send(report);
+} 
+
+catch (err) {
   // If there is an error while fetching the costs, return an error
   return res.status(500).send({ error: 'Error while fetching costs' });
-  }
-  });
+}
+});
   
   // Export the router as a module
   module.exports = router;
