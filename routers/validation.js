@@ -5,8 +5,8 @@ const isValidUserId = async (userId) => {
 };
 
 // Function to check if a given day and month are valid
-const isValidDate = (day, month,year) => {
-  return day > 0 && day <= 31 && month > 0 && month <= 12 &&year>=1900;
+const isValidDate = (day = 1, month, year = 1900) => {
+  return day > 0 && day <= 31 && month > 0 && month <= 12 && year >= 1900;
 };
 
 const idGenerator=()=>{
