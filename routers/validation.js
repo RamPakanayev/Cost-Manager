@@ -1,3 +1,4 @@
+const { costDoc,userDoc } = require("../db/db");
 // Function to check if a given user_id exists in the users collection
 const isValidUserId = async (userId) => {
   const user = await userDoc.findOne({ _id: userId });
