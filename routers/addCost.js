@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
   // Check if the required fields (user_id, description, sum, category) are provided
   if (!userId || !description || !sum || !category) {
     return res.status(400)
-    .send("user_id, description, sum, and category are required fields");
+    .send("user_id, description, sum, and category are required keys.");
   }
 
  // Check if the user_id exists in the users collection
