@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 // Create an instance of express
 const app = express();
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import the costDoc and connectToDB functions from db.js
