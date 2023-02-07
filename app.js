@@ -1,7 +1,10 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 
 // Create an instance of express
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import the costDoc and connectToDB functions from db.js
 const { connectToDB, costDoc,userDoc } = require("./db/db");
@@ -21,6 +24,8 @@ app.db = { costDoc,userDoc };
 app.use("/addcost", addCostRouter);
 app.use("/report", reportRouter);
 app.use("/about", aboutRouter);
+
+
 
 // Export the express app
 module.exports = app;
