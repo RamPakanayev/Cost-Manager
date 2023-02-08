@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 const { costDoc,userDoc } = require("../db/db");
 const url = require("url");
-const {isValidUserId,isValidDate, idGenerator,isValidCategory}=require("./validation")
+const {isValidUserId,isValidDate, idGenerator,isValidCategory}=require("../utils/validation")
 
 
 router.post("/", async (req, res) => {
