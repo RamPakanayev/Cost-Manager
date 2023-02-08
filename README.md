@@ -6,21 +6,10 @@ Terminal instructions:
 
 1. npm i express mongodb dotenv body-parser
 
-<!-- ROADMAP -->
 
-## Roadmap
+# running the server
+to run the server firstly connect to your server and cd to Cost-Manager-Backend folder:
+`cd Cost-Manager-Backend/`
 
-1.setting the project
-
-- [x] /addcost
-- [x] /report
-- [x] /about
-- [x] breaking to sub rout files
-- [x] make the server listen continuously
-
-2.talk with life michael
-
-3.upload the project to domain
-  - [ ] decide aws/cloude/azure/netlify
-  - [ ] implementation
-  - [ ] tests
+then if the server is not running start the server with pm2:
+`pm2 start node ./bin/www`
