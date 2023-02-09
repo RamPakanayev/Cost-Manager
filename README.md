@@ -15,5 +15,5 @@ then if the server is not running start the server with pm2:
 `pm2 start node ./bin/www`
 
 
-## Youtube Video Web usage:
+## Youtube web usage video:
 [Click this Youtube link](https://www.youtube.com/watch?v=Tyv8EJ7kxKU)
